@@ -4,11 +4,10 @@ function init() {
 
   // FUNCTIONS
   //gets the flags via the API 
-  function getAllFlags(isLocalStorageFull) {
+  function getAllFlags() {
     fetch('https://restcountries.eu/rest/v2/all?fields=name;flag;region;nativeName;')
       .then(response => response.json())
       .then(response => {
-        console.log('empty')
         flags = response
         chrome.storage.local.set({ data: flags });
         displayFlags(flags)
