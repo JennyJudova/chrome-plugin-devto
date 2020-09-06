@@ -1,0 +1,17 @@
+{
+  "manifest_version": 2,
+  "name": "Chrome plugin template Devto",
+  "description": "Chrome plugin template Devto",
+  "version": "1",
+  "author": "Jenny Judova",
+  "browser_action": {
+    "default_title": "Fun with Flags"
+  },
+  "chrome_url_overrides": {
+    "newtab": "newtab.html"
+  },
+  "permissions": [
+    "activeTab",
+    "storage"
+  ]
+}
