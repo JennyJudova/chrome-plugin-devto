@@ -1,6 +1,7 @@
 function init() {
   //GLOBAL VARIABLES
   let flags = []
+  const countryList = document.querySelector('.countries')
 
   // FUNCTIONS
   //gets the flags via the API 
