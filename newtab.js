@@ -4,16 +4,34 @@ function init() {
   const countryList = document.querySelector('.countries')
 
   // FUNCTIONS
-  //gets the flags via the API 
-  function getAllFlags() {
-    fetch('https://restcountries.eu/rest/v2/all?fields=name;flag;region;nativeName;')
-      .then(response => response.json())
-      .then(response => {
-        flags = response
-        chrome.storage.local.set({ data: flags });
+
+  //Checks local storage
+  function checkLocalStorage() {
+    chrome.storage.local.get('data', function (result) {
+      result.data == undefined ? isLocalStorageFull = false : isLocalStorageFull = true
+      getAllFlags(isLocalStorageFull)
+    });
+  }
+
+  //gets the flags via the API or localStorage
+  function getAllFlags(isLocalStorageFull) {
+    if (isLocalStorageFull) {
+      console.log('full')
+      chrome.storage.local.get('data', function (result) {
+        flags = result.data
         displayFlags(flags)
       })
-      .catch(err => console.log(err))
+    } else {
+      fetch('https://restcountries.eu/rest/v2/all?fields=name;flag;region;nativeName;')
+        .then(response => response.json())
+        .then(response => {
+          console.log('empty')
+          flags = response
+          chrome.storage.local.set({ data: flags });
+          displayFlags(flags)
+        })
+        .catch(err => console.log(err))
+    }
   }
 
   //creates div with flag img, country name, and native country name
